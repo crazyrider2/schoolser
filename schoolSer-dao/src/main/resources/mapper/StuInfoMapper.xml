@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolSer.mapper.StuInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolSer.sqlparam.StuInfo" >
+    <id column="stuId" property="stuid" jdbcType="INTEGER" />
+    <result column="stuName" property="stuname" jdbcType="VARCHAR" />
+    <result column="stuAge" property="stuage" jdbcType="INTEGER" />
+    <result column="stuClass" property="stuclass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stuId, stuName, stuAge, stuClass
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stu_info
+    where stuId = #{stuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stu_info
+    where stuId = #{stuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.schoolSer.sqlparam.StuInfo" >
+    insert into stu_info (stuId, stuName, stuAge, 
+      stuClass)
+    values (#{stuid,jdbcType=INTEGER}, #{stuname,jdbcType=VARCHAR}, #{stuage,jdbcType=INTEGER}, 
+      #{stuclass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolSer.sqlparam.StuInfo" >
+    insert into stu_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        stuId,
+      </if>
+      <if test="stuname != null" >
+        stuName,
+      </if>
+      <if test="stuage != null" >
+        stuAge,
+      </if>
+      <if test="stuclass != null" >
+        stuClass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="stuname != null" >
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stuage != null" >
+        #{stuage,jdbcType=INTEGER},
+      </if>
+      <if test="stuclass != null" >
+        #{stuclass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolSer.sqlparam.StuInfo" >
+    update stu_info
+    <set >
+      <if test="stuname != null" >
+        stuName = #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stuage != null" >
+        stuAge = #{stuage,jdbcType=INTEGER},
+      </if>
+      <if test="stuclass != null" >
+        stuClass = #{stuclass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stuId = #{stuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolSer.sqlparam.StuInfo" >
+    update stu_info
+    set stuName = #{stuname,jdbcType=VARCHAR},
+      stuAge = #{stuage,jdbcType=INTEGER},
+      stuClass = #{stuclass,jdbcType=VARCHAR}
+    where stuId = #{stuid,jdbcType=INTEGER}
+  </update>
+
+  <select id="nextVal" resultType="java.lang.String">
+    select nextval('seq_payextinfo')
+  </select>
+</mapper>

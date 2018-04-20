@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolSer.mapper.StuCourseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolSer.sqlparam.StuCourseInfo" >
+    <id column="stuId" property="stuid" jdbcType="INTEGER" />
+    <id column="courseId" property="courseid" jdbcType="VARCHAR" />
+    <result column="courseGrade" property="coursegrade" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stuId, courseId, courseGrade
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.schoolSer.sqlparam.StuCourseInfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from stu_course_info
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courseId = #{courseid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.schoolSer.sqlparam.StuCourseInfoKey" >
+    delete from stu_course_info
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courseId = #{courseid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.schoolSer.sqlparam.StuCourseInfo" >
+    insert into stu_course_info (stuId, courseId, courseGrade
+      )
+    values (#{stuid,jdbcType=INTEGER}, #{courseid,jdbcType=VARCHAR}, #{coursegrade,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolSer.sqlparam.StuCourseInfo" >
+    insert into stu_course_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        stuId,
+      </if>
+      <if test="courseid != null" >
+        courseId,
+      </if>
+      <if test="coursegrade != null" >
+        courseGrade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursegrade != null" >
+        #{coursegrade,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolSer.sqlparam.StuCourseInfo" >
+    update stu_course_info
+    <set >
+      <if test="coursegrade != null" >
+        courseGrade = #{coursegrade,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courseId = #{courseid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolSer.sqlparam.StuCourseInfo" >
+    update stu_course_info
+    set courseGrade = #{coursegrade,jdbcType=DECIMAL}
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courseId = #{courseid,jdbcType=VARCHAR}
+  </update>
+</mapper>
