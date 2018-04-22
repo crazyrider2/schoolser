@@ -1,5 +1,8 @@
 package com.schoolSer.sqlparam;
 
+/**
+ * 学生信息
+ */
 public class StuInfo {
     private Integer stuid;
 
