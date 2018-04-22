@@ -2,6 +2,9 @@ package com.schoolSer.sqlparam;
 
 import java.util.Date;
 
+/**
+ * 课程信息
+ */
 public class CourseInfo {
     private String courseid;
 
